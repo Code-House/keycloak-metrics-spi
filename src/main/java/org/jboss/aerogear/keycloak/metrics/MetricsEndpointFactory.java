@@ -15,6 +15,8 @@ public class MetricsEndpointFactory implements RealmResourceProviderFactory {
 
     @Override
     public void init(Config.Scope config) {
+        InfinispanExports.initialize();
+
         ResteasyProviderFactory.getInstance().getContainerRequestFilterRegistry()
             .registerSingleton(MetricsFilter.instance());
 

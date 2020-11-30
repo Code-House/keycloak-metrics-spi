@@ -380,7 +380,7 @@ public final class PrometheusExporter {
      */
     public void export(final OutputStream stream) throws IOException {
         final Writer writer = new BufferedWriter(new OutputStreamWriter(stream));
-        TextFormat.write004(writer, CollectorRegistry.defaultRegistry.metricFamilySamples());
+        CsvFormat.write001(writer, CollectorRegistry.defaultRegistry.metricFamilySamples());
         writer.flush();
     }
 
