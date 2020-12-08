@@ -13,22 +13,20 @@ public class CsvFormat {
     public static void write001(Writer writer, Enumeration<MetricFamilySamples> mfs) throws IOException {
         /* See http://prometheus.io/docs/instrumenting/exposition_formats/
          * for the output format specification. */
-        writer.write("type,sample,value,timestamp,labels\n");
+        //writer.write("type,sample,value,timestamp,labels\n");
         while(mfs.hasMoreElements()) {
             Collector.MetricFamilySamples metricFamilySamples = mfs.nextElement();
             for (Collector.MetricFamilySamples.Sample sample: metricFamilySamples.samples) {
-                writer.write(typeString(metricFamilySamples.type));
-                writer.write(',');
+                //writer.write(typeString(metricFamilySamples.type));
+                //writer.write(',');
                 //writer.write(metricFamilySamples.name);
                 //writer.write(',');
                 writer.write(sample.name);
-                writer.write(',');
-                writer.write(Collector.doubleToGoString(sample.value));
-                writer.write(',');
-                if (sample.timestampMs != null){
-                    writer.write(sample.timestampMs.toString());
-                }
-                writer.write(',');
+                //writer.write(',');
+                //if (sample.timestampMs != null){
+                //    writer.write(sample.timestampMs.toString());
+               // }
+                writer.write('{');
                 if (sample.labelNames.size() > 0) {
                     for (int i = 0; i < sample.labelNames.size(); ++i) {
                         writer.write(sample.labelNames.get(i));
@@ -37,6 +35,9 @@ public class CsvFormat {
                         writer.write("\",");
                     }
                 }
+                writer.write('}');
+                writer.write(' ');
+                writer.write(Collector.doubleToGoString(sample.value));
                 writer.write('\n');
             }
         }
